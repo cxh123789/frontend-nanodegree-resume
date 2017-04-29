@@ -1,4 +1,5 @@
-var bio ={
+
+ var bio = {
  	"name" : "褚翔鸿",
  	"role" : "Web Developer",
  	"contacts" : [{
@@ -8,10 +9,12 @@ var bio ={
  		"location" : "山东济南"
  	}],
  	"welcomeMessage" : "Hello.",
- 	"skills" : ["adaptability","Time management","Collaboration"],
+ 	"skills" : [
+ 	"Good leader", "soft skills", "Adaptability", "Collaboration", "Time management"
+ 	],
  	"bioPic" : "images/褚翔鸿_conew1.jpg"
  };
- /*var work = {
+ var work = {
  	"jobs" :[{
  	"employer" : "myself",
  	"title" : "student",
@@ -19,6 +22,7 @@ var bio ={
  	"description" : "Learn to enrich yourself."
      }]
  };
+ /*
 var projects = {
 	"projects" : [{
 		"title" : "Animal Trading Card",
@@ -47,7 +51,7 @@ var education = {
 		"dates" : "2016-2017"
 	}]
 };*/
-if(bio.skills.length >0){
+/*if(bio.skills.length >0){
   $("#header").append(HTMLskillsStart);
      bio["skills"].forEach(function(skill) {
          var formattedSkill = HTMLskills.replace("%data%", skill);
@@ -55,3 +59,44 @@ if(bio.skills.length >0){
      });
 
 }
+*/
+bio.display = function() {
+	var formattedName = HTMLheaderName.replace("%data%",bio.name);
+	var formattedRole = HTMLheaderRole.replace("%data%",bio.role);
+	var formattedImage = HTMLbioPic.replace("%data%",bio.bioPic);
+	var formattedMessage = HTMLwelcomeMsg.replace("%data%",bio.welcomeMessage);
+
+	$("#header").prepend(formattedRole).prepend(formattedName).append(formattedImage,formattedMessage);
+	$("#header").append(HTMLskillsStart);
+
+	for(skill in bio.skills) {
+		var formattedSkills = HTMLskills.replace("%data%",bio.skills[skill]);
+		$("#skills").append(formattedSkills);
+	};
+
+	for(contact in bio.contacts) {
+		var formattedMobile = HTMLmobile.replace("%data%",bio.contacts[contact].mobile);
+		var formattedEmail = HTMLemail.replace("%data%",bio.contacts[contact].email);
+		var formattedGithub = HTMLgithub.replace("%data%",bio.contacts[contact].github);
+		var formattedLocation = HTMLlocation.replace("%data%",bio.contacts[contact].location);
+
+		$("#topContacts").append(formattedMobile,formattedEmail,formattedGithub,formattedLocation);
+		$("#footerContacts").append(formattedMobile,formattedEmail,formattedGithub,formattedLocation);
+	};
+};
+work.display = function() {
+  for(job in work.jobs){
+    $("#workExperience").append(HTMLworkStart);
+
+    var formattedEmployer = HTMLworkEmployer.replace("%data%",work.jobs[job].employer);
+    var formattedTitle = HTMLworkTitle.replace("%data%",work.jobs[job].title);
+    var formattedDates = HTMLworkDates.replace("%data%",work.jobs[job].dates);
+    var formattedDescription = HTMLworkDescription.replace("%data%",work.jobs[job].description);
+
+    $("#workExperience").append(formattedEmployer,formattedTitle,formattedDates,formattedDescription);
+
+
+  }
+};
+bio.display();
+work.display();
