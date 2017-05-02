@@ -22,7 +22,7 @@
  	"description" : "Learn to enrich yourself."
      }]
  };
- /*
+
 var projects = {
 	"projects" : [{
 		"title" : "Animal Trading Card",
@@ -34,13 +34,14 @@ var projects = {
 		"title" : "Build a Portfolio Site",
 		"data" : "2017",
 		"description" : "HTML creating web pages and web application",
-		"images" : ["images/QQ截图20170417085847.png"]
+		"images" : ["images/p3作品集.png"]
 	}]
 };
+
 var education = {
-	"school" : [{
+	"schools" : [{
 		"name" : "齐鲁工业大学",
-		"city" : "山东济南",
+		"city" : "Jinan, CN, Shandong",
 		"degree" : "Bachelor's Degree",
 		"majors" : "CST",
 		"dates" : "2014-2018"
@@ -49,17 +50,10 @@ var education = {
 		"title" : "Front-end Web Developer Nanodegree",
 		"school" : "Udacity",
 		"dates" : "2016-2017"
-	}]
-};*/
-/*if(bio.skills.length >0){
-  $("#header").append(HTMLskillsStart);
-     bio["skills"].forEach(function(skill) {
-         var formattedSkill = HTMLskills.replace("%data%", skill);
-         $("#skills").append(formattedSkill);
-     });
 
-}
-*/
+	}]
+};
+
 bio.display = function() {
 	var formattedName = HTMLheaderName.replace("%data%",bio.name);
 	var formattedRole = HTMLheaderRole.replace("%data%",bio.role);
@@ -93,10 +87,60 @@ work.display = function() {
     var formattedDates = HTMLworkDates.replace("%data%",work.jobs[job].dates);
     var formattedDescription = HTMLworkDescription.replace("%data%",work.jobs[job].description);
 
-    $("#workExperience").append(formattedEmployer,formattedTitle,formattedDates,formattedDescription);
+    $(".work-entry:last").append(formattedEmployer,formattedTitle,formattedDates,formattedDescription);
 
 
   }
 };
+$(document).click(function(loc) {
+  var x = loc.pageX;
+  var y = loc.pageY;
+
+  logClicks(x,y);
+});
+projects.display = function(){
+	for(item in projects.projects){
+		$("#projects").append(HTMLprojectStart);
+
+		var formattedTitle = HTMLprojectTitle.replace("%data%",projects.projects[item].title);
+		var formattedDates = HTMLprojectDates.replace("%data%",projects.projects[item].dates);
+		var formattedDescription = HTMLprojectDescription.replace("%data%",projects.projects[item].description);
+
+		$(".project-entry:last").append(formattedTitle,formattedDates,formattedDescription,formattedImage);
+
+		for (image in projects.projects[item].images) {
+			var formattedImage = HTMLprojectImage.replace("%data%",projects.projects[item].images[image]);
+			$(".project-entry:last").append(formattedImage);
+		};
+	}
+};
+education.display = function() {
+	for(school in education.schools) {
+		$("#education").append(HTMLschoolStart);
+
+		var formattedName = HTMLschoolName.replace("%data%",education.schools[school].name);
+		var formattedDegree = HTMLschoolDegree.replace("%data%",education.schools[school].degree);
+		var formattedDates = HTMLschoolDates.replace("%data%",education.schools[school].dates);
+		var formattedLocation = HTMLschoolLocation.replace("%data%",education.schools[school].city);
+		var formattedMajor = HTMLschoolMajor.replace("%data%",education.schools[school].majors);
+
+		$(".education-entry:last").prepend(formattedName + formattedDegree,formattedDates,formattedLocation,formattedMajor);
+	};
+
+	for(course in education.onlineCourses) {
+		$("#education").append(HTMLonlineClasses);
+
+		var formattedTitle = HTMLonlineTitle.replace("%data%",education.onlineCourses[course].title);
+		var formattedSchool = HTMLonlineSchool.replace("%data%",education.onlineCourses[course].school);
+		var formattedDates = HTMLonlineDates.replace("%data%",education.onlineCourses[course].dates);
+
+		$(".education-entry:last").append(formattedTitle + formattedSchool,formattedDates);
+	}
+};
+
 bio.display();
 work.display();
+projects.display();
+education.display();
+$("#main").append(internationalizeButton);
+$("#mapDiv").append(googleMap);
