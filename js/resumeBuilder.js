@@ -30,13 +30,13 @@ var projects = {
 		"title" : "Animal Trading Card",
 		"dates" : "2017",
 		"description" : "HTML creating web pages and web application",
-		"images" : "images/197x148.gif"
+		"images" : ["images/197x148.gif"]
 	},
 	{
 		"title" : "Build a Portfolio Site",
 		"dates" : "2017",
 		"description" : "HTML creating web pages and web application",
-		"images" : "images/QQ截图20170417085847.png"
+		"images" : ["images/QQ截图20170417085847.png"]
 	}]
 };
 
@@ -45,7 +45,7 @@ var education = {
 		"name" : "齐鲁工业大学¦",
 		"city" : "Jinan, CN, Shandong",
     "url" : "http://www.sdili.edu.cn/",
-    //我这help中设置了 点击会访问 不知这样对不对
+
 		"degree" : "Bachelor's Degree",
 		"majors" : ["CST"],
 		"dates" : "2014-2018"
@@ -78,7 +78,7 @@ bio.display = function() {
   for(var index = 0; index < bio.skills.length; index++){
 
       var formattedSkills = HTMLskills.replace("%data%",bio.skills[index]);
-      $("#skills").append(HTMLskills);
+      $("#skills").append(formattedSkills);
   }
 
 };
@@ -109,12 +109,20 @@ projects.display = function(){
 		var formattedTitle = HTMLprojectTitle.replace("%data%",projects.projects[i].title);
 		var formattedDates = HTMLprojectDates.replace("%data%",projects.projects[i].dates);
 		var formattedDescription = HTMLprojectDescription.replace("%data%",projects.projects[i].description);
-    var formattedImage = HTMLprojectImage.replace("%data%",projects.projects[i].images);
+
 
 		$(".project-entry:last").append(formattedTitle,formattedDates,formattedDescription,formattedImage);
-		$(".project-entry:last").append(formattedImage);
+    for(var z = 0;z<projects.projects[i].images.length; z++){
+    
+       var formattedImage = HTMLprojectImage.replace("%data%",projects.projects[i].images[z]);
+       $(".project-entry:last").append(formattedImage);
+
+
+     }
 
 	}
+
+
 };
 education.display = function() {
 	for(var c =0; c<education.schools.length; c++) {

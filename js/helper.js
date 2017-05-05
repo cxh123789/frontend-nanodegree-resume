@@ -183,6 +183,7 @@ function extraPositionFromJson(json) {
 function placeMarker(lng, lat, map) {
   marker = new AMap.Marker({
     position: [lng, lat],
+    icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
     map: map
   });
 }
